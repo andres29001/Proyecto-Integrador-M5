@@ -1,0 +1,6 @@
+{
+    "project_code": "riesgo_crediticio",
+    "target_column": "Pago_atiempo",
+    "raw_data_path": "../../Base_de_datos.csv",
+    "random_seed": 42
+}

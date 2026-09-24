@@ -1,0 +1,31 @@
+# Entornos virtuales
+*-venv/
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Datos intermedios / artefactos generados (no versionar, se regeneran)
+mlops_pipeline/data_checkpoint.parquet
+mlops_pipeline/**/*.parquet
+*.pkl
+*.joblib
+
+# Variables de entorno / secretos
+.env
+
+# Jupyter
+*/.ipynb_checkpoints/*
+
+# SO / editores
+.DS_Store
+.vscode/
+.idea/
+
+# Docker
+*.log
