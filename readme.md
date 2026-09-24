@@ -83,7 +83,7 @@ streamlit run streamlit_app.py
 - [x] Avance #1 — Estructura del repo, entorno, EDA (V1.0.0 / V1.0.1)
 - [x] Avance #2 — Feature engineering y modelado (V1.1.0 / V1.0.1)
 - [x] Avance #3 — Monitoreo de drift, app Streamlit, README final
-- [ ] Avance #4 — API con FastAPI + Docker
+- [x] Avance #4 — API con FastAPI + Docker
 - [ ] Extra credit — SonarCloud
 
 ---
@@ -182,7 +182,37 @@ de solicitudes recientes.
 - **Monitoreo de Drift**: dashboard interactivo con el PSI de cada variable,
   gráfico de barras y tabla detallada con nivel de alerta.
 
-## 6. Próximos pasos (Avance #4)
+## 6. API con FastAPI y Docker
 
-- Exponer el modelo mediante una API con FastAPI (`model_deploy.py`).
-- Empaquetar la app en una imagen Docker.
+`model_deploy.py` expone el modelo mediante una API REST:
+
+| Endpoint | Método | Descripción |
+|---|---|---|
+| `/` | GET | Healthcheck simple |
+| `/health` | GET | Confirma si el modelo entrenado está disponible |
+| `/predict` | POST | Recibe los datos de un cliente, devuelve predicción + probabilidades |
+| `/docs` | GET | Documentación interactiva (Swagger), autogenerada por FastAPI |
+
+**Correr localmente (sin Docker):**
+```bash
+cd mlops_pipeline/src
+uvicorn model_deploy:app --reload --host 0.0.0.0 --port 8000
+# abrir http://localhost:8000/docs
+```
+
+**Correr con Docker:**
+```bash
+docker build -t riesgo-crediticio-api .
+docker run -p 8000:8000 riesgo-crediticio-api
+# abrir http://localhost:8000/docs
+```
+
+El `Dockerfile` instala `requirements.txt`, copia el proyecto, entrena el
+modelo dentro de la imagen (para no depender de un `.pkl` externo) y levanta
+la API con `uvicorn`. El `.dockerignore` excluye entornos virtuales, notebooks
+checkpoints y artefactos pesados para mantener la imagen liviana.
+
+## 7. Extra credit: SonarCloud
+
+Pendiente: configurar SonarCloud sobre el repositorio para validar calidad de
+código, seguridad, cobertura de pruebas y estilo.
