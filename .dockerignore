@@ -1,0 +1,15 @@
+*-venv/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.git/
+.gitignore
+mlops_pipeline/models/
+mlops_pipeline/reports/
+*.pkl
+*.joblib
+.env
+README.md
+readme.md
